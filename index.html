@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assembleia de Deus Ministério de Jesus - Interativo</title>
+    <!-- Carregamento do Tailwind CSS CDN --><script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configuração de Cores e Fonte --><style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        :root {
+            --color-primary: #1f2937; /* Cinza Escuro - Dark Graphite */
+            --color-secondary: #fcd34d; /* Dourado Vivo - Amber */
+            --color-whatsapp: #25d366; /* Verde WhatsApp */
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .bg-primary { background-color: var(--color-primary); }
+        .text-primary { color: var(--color-primary); }
+        .bg-secondary { background-color: var(--color-secondary); }
+        .text-secondary { color: var(--color-secondary); }
+        .btn-gold {
+            @apply px-8 py-3 font-bold text-lg transition duration-300 ease-in-out transform hover:scale-105 rounded-full shadow-xl bg-secondary text-primary hover:bg-amber-500 focus:outline-none focus:ring-4 focus:ring-amber-300;
+        }
+        .section-padding {
+            @apply py-16 md:py-28;
+        }
+        /* Custom Hover Effect for Cards */
+        .card-hover {
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        /* Efeito de zoom e sombra para as imagens da galeria */
+        .gallery-item {
+            /* Força proporção 1:1 (quadrada) */
+            @apply overflow-hidden rounded-xl shadow-lg transition duration-300 ease-in-out cursor-pointer;
+        }
+        .gallery-item img {
+            @apply w-full h-full object-cover transform hover:scale-105 transition duration-500;
+        }
+    </style>
+</head>
+<body class="text-gray-900 bg-gray-50">
+
+    <!-- Navegação (Header) - Fundo em Cinza Grafite Fixo --><header class="sticky top-0 z-50 shadow-2xl bg-primary">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center">
+                    <!-- Logo/Nome da Igreja --><a href="#inicio" class="flex-shrink-0 text-3xl font-extrabold text-white tracking-wider">
+                        AD <span class="text-secondary">MJ</span>
+                    </a>
+                </div>
+                <!-- Links Desktop --><div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-6">
+                        <a href="#inicio" class="text-white hover:text-secondary px-3 py-2 rounded-md text-base font-medium transition duration-200">Início</a>
+                        <a href="#sobre" class="text-white hover:text-secondary px-3 py-2 rounded-md text-base font-medium transition duration-200">Sobre</a>
+                        <a href="#ministerios" class="text-white hover:text-secondary px-3 py-2 rounded-md text-base font-medium transition duration-200">Ministérios</a>
+                        <a href="#galeria" class="text-white hover:text-secondary px-3 py-2 rounded-md text-base font-medium transition duration-200">Galeria</a>
+                        <a href="#circuito" class="text-secondary font-bold px-3 py-2 rounded-md text-base transition duration-200 border-2 border-secondary hover:bg-secondary hover:text-primary">Circuito Oração</a>
+                        <a href="#cultos" class="text-white hover:text-secondary px-3 py-2 rounded-md text-base font-medium transition duration-200">Cultos</a>
+                        <a href="#contato" class="text-white hover:text-secondary px-3 py-2 rounded-md text-base font-medium transition duration-200">Contato</a>
+                    </div>
+                </div>
+                <!-- Botão do Menu Mobile --><div class="md:hidden">
+                    <button id="menu-button" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-secondary focus:outline-none focus:ring-2 focus:ring-inset focus:ring-secondary" aria-expanded="false">
+                        <!-- Icone Menu (Lucide: Menu) --><svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Menu Mobile (oculto por padrão) --><div class="md:hidden hidden bg-gray-800" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
+                <a href="#inicio" class="text-white hover:bg-gray-700 block px-3 py-2 rounded-md text-base font-medium" onclick="closeMenu()">Início</a>
+                <a href="#sobre" class="text-white hover:bg-gray-700 block px-3 py-2 rounded-md text-base font-medium" onclick="closeMenu()">Sobre</a>
+                <a href="#ministerios" class="text-white hover:bg-gray-700 block px-3 py-2 rounded-md text-base font-medium" onclick="closeMenu()">Ministérios</a>
+                <a href="#galeria" class="text-white hover:bg-gray-700 block px-3 py-2 rounded-md text-base font-medium" onclick="closeMenu()">Galeria</a>
+                <a href="#circuito" class="text-secondary font-bold hover:bg-gray-700 block px-3 py-2 rounded-md text-base" onclick="closeMenu()">Circuito Oração</a>
+                <a href="#cultos" class="text-white hover:bg-gray-700 block px-3 py-2 rounded-md text-base font-medium" onclick="closeMenu()">Cultos</a>
+                <a href="#contato" class="text-white hover:bg-gray-700 block px-3 py-2 rounded-md text-base font-medium" onclick="closeMenu()">Contato</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Seção Hero (Início) - Banner de Alto Impacto --><section id="inicio" class="relative section-padding bg-cover bg-center" 
+                 style="background-image: url('https://placehold.co/1920x800/222222/fcd34d?text=Banner+1920x800+(Otimizado)'); min-height: 80vh;">
+            <div class="absolute inset-0 bg-primary opacity-80"></div>
+            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+                <h1 class="text-5xl md:text-8xl font-black leading-snug tracking-tighter mb-4 text-secondary animate-fade-in">
+                    AD MINISTÉRIO DE JESUS
+                </h1>
+                <h2 class="text-2xl md:text-4xl font-light mb-8 max-w-4xl mx-auto opacity-90 animate-slide-up">
+                    "Uma família em Cristo, com a missão de edificar vidas e espalhar a Palavra."
+                </h2>
+                <div class="space-x-4">
+                    <a href="#cultos" class="btn-gold">
+                        <span class="mr-2">📅</span> Nossos Cultos
+                    </a>
+                    <a href="https://wa.me/5585987647128?text=Ol%C3%A1%2C%20visitei%20o%20site%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20o%20Minist%C3%A9rio%20de%20Jesus." target="_blank" class="btn-gold bg-white text-primary hover:bg-gray-200">
+                        <span class="mr-2">💬</span> Fale no WhatsApp
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Sobre Nós - Com Cards de Propósito (Foto do pastor removida) -->
+        <section id="sobre" class="section-padding bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-4xl font-bold mb-4 text-primary">Nossa História e Propósito</h2>
+                <div class="h-1 bg-secondary w-24 mx-auto mb-12 rounded-full"></div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                    <!-- Card 1: Adoração --><div class="p-8 rounded-2xl bg-gray-50 card-hover border-t-4 border-secondary">
+                        <div class="text-secondary text-5xl mb-4">
+                            <!-- Icone (Lucide: Heart Handshake) --><svg class="h-12 w-12 mx-auto" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 15c-1.74 0-3.414-.81-4.634-1.895C5.08 12.025 4 10.59 4 9s1.08-3.025 2.366-4.08C7.586 3.81 9.26 3 11 3s3.414.81 4.634 1.895C16.92 6.025 18 7.41 18 9s-1.08 3.025-2.366 4.08C14.414 14.19 12.74 15 11 15z"/><path d="M22 17c0 1.25-.75 2.5-2 3.5s-3 1.5-5 1.5c-1.25 0-2.5-.5-3.5-1.5S10 18.25 10 17"/></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 text-primary">Adoração</h3>
+                        <p class="text-gray-600">
+                            Nosso maior foco é a adoração genuína a Deus, buscando a presença do Espírito Santo em cada encontro.
+                        </p>
+                    </div>
+
+                    <!-- Card 2: Comunidade --><div class="p-8 rounded-2xl bg-gray-50 card-hover border-t-4 border-secondary">
+                        <div class="text-secondary text-5xl mb-4">
+                            <!-- Icone (Lucide: Users) --><svg class="h-12 w-12 mx-auto" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.72"/><path d="M17 3.34a10 10 0 1 1-14.99 4.88"/></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 text-primary">Comunidade</h3>
+                        <p class="text-gray-600">
+                            Somos uma família. Amamos, cuidamos e crescemos juntos, manifestando o amor de Cristo em união.
+                        </p>
+                    </div>
+
+                    <!-- Card 3: Missão --><div class="p-8 rounded-2xl bg-gray-50 card-hover border-t-4 border-secondary">
+                        <div class="text-secondary text-5xl mb-4">
+                            <!-- Icone (Lucide: Compass) --><svg class="h-12 w-12 mx-auto" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m16.5 7.5-3 9-9 3 3-9 9-3z"/></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-3 text-primary">Missão</h3>
+                        <p class="text-gray-600">
+                            Nosso compromisso é com o "Ide", levando a mensagem transformadora do Evangelho a todos os lugares.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Ministérios - Interativa com Hover --><section id="ministerios" class="section-padding bg-gray-100">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-4xl font-bold mb-4 text-primary">Nossos Ministérios</h2>
+                <div class="h-1 bg-secondary w-24 mx-auto mb-12 rounded-full"></div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Card Ministério: Juventude --><div class="bg-white p-6 rounded-xl shadow-xl card-hover border-b-4 border-primary">
+                        <div class="text-primary text-5xl mb-4">
+                            <!-- Icone (Lucide: Heart Handshake) --><svg class="h-12 w-12 mx-auto" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 18a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2"/><rect width="18" height="18" x="3" y="4" rx="2"/><circle cx="12" cy="10" r="3"/><line x1="8" x2="8" y1="2" y2="4"/><line x1="16" x2="16" y1="2" y2="4"/></svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-primary">Geração ADMJ</h3>
+                        <p class="text-sm text-gray-600">
+                            Conectando jovens para um relacionamento profundo com Deus. Encontros quinzenais.
+                        </p>
+                    </div>
+                    
+                    <!-- Card Ministério: Louvor --><div class="bg-white p-6 rounded-xl shadow-xl card-hover border-b-4 border-primary">
+                        <div class="text-primary text-5xl mb-4">
+                            <!-- Icone (Lucide: Music) --><svg class="h-12 w-12 mx-auto" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-primary">Louvor & Arte</h3>
+                        <p class="text-sm text-gray-600">
+                            Ministrando com excelência para criar uma atmosfera de adoração e rendição ao Senhor.
+                        </p>
+                    </div>
+
+                    <!-- Card Ministério: Infantil --><div class="bg-white p-6 rounded-xl shadow-xl card-hover border-b-4 border-primary">
+                        <div class="text-primary text-5xl mb-4">
+                            <!-- Icone (Lucide: Smile) --><svg class="h-12 w-12 mx-auto" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" x2="9.01" y1="9" y2="9"/><line x1="15" x2="15.01" y1="9" y2="9"/></svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-primary">ADMJ Kids</h3>
+                        <p class="text-sm text-gray-600">
+                            Ensinando os princípios bíblicos para as crianças de forma lúdica e memorável.
+                        </p>
+                    </div>
+
+                    <!-- Card Ministério: Diaconia --><div class="bg-white p-6 rounded-xl shadow-xl card-hover border-b-4 border-primary">
+                        <div class="text-primary text-5xl mb-4">
+                            <!-- Icone (Lucide: Hand) --><svg class="h-12 w-12 mx-auto" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10c0 1.28-.5 2.45-1.3 3.32l-3.2 3.18V22l-1.5-1.5-1.5 1.5V17.5l-3.2-3.18C6.5 12.45 6 11.28 6 10a6 6 0 1 1 12 0Z"/></svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-primary">Diaconia</h3>
+                        <p class="text-sm text-gray-600">
+                            Servindo a igreja com excelência e cuidado, garantindo a ordem e o acolhimento.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NOVA SEÇÃO: Galeria de Fotos (Mural) -->
+        <section id="galeria" class="section-padding bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-4xl font-bold mb-4 text-primary">Galeria de Fotos</h2>
+                <div class="h-1 bg-secondary w-24 mx-auto mb-6 rounded-full"></div>
+                <p class="text-xl mb-12 text-gray-700">Momentos de fé, comunhão e serviço da nossa família ADMJ.</p>
+
+                <!-- Grid de Fotos Responsivo (Recomendado 400x400 pixels para proporção 1:1) --><div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+                    <!-- Foto 1 (USANDO A FOTO ENVIADA) --><div class="gallery-item aspect-square">
+                        <img src="uploaded:168034.jpg-039bdba9-3081-473f-8494-6ce02dd4bd8d" 
+                             alt="Foto da Galeria 1" 
+                             loading="lazy" 
+                             onerror="this.onerror=null; this.src='https://placehold.co/400x400/1f2937/fcd34d?text=Culto+de+Domingo+(Placeholder)';"/>
+                    </div>
+                    <!-- Foto 2 --><div class="gallery-item aspect-square">
+                        <img src="https://placehold.co/400x400/fcd34d/1f2937?text=Batismo+(400x400)" alt="Foto de Batismo (400x400)" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/400x400/9ca3af/ffffff?text=Imagem+Faltando';" />
+                    </div>
+                    <!-- Foto 3 --><div class="gallery-item aspect-square">
+                        <img src="https://placehold.co/400x400/4b5563/fcd34d?text=Louvor+%26+Adoração+(400x400)" alt="Foto do Louvor e Adoração (400x400)" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/400x400/9ca3af/ffffff?text=Imagem+Faltando';" />
+                    </div>
+                    <!-- Foto 4 --><div class="gallery-item aspect-square hidden sm:block">
+                        <img src="https://placehold.co/400x400/1f2937/ffffff?text=Grupo+de+Jovens+(400x400)" alt="Foto do Grupo de Jovens (400x400)" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/400x400/9ca3af/ffffff?text=Imagem+Faltando';" />
+                    </div>
+                    <!-- Foto 5 --><div class="gallery-item aspect-square">
+                        <img src="https://placehold.co/400x400/fcd34d/4b5563?text=Ação+Social+(400x400)" alt="Foto de Ação Social (400x400)" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/400x400/9ca3af/ffffff?text=Imagem+Faltando';" />
+                    </div>
+                    <!-- Foto 6 --><div class="gallery-item aspect-square">
+                        <img src="https://placehold.co/400x400/9ca3af/1f2937?text=Santa+Ceia+(400x400)" alt="Foto da Santa Ceia (400x400)" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/400x400/9ca3af/ffffff?text=Imagem+Faltando';" />
+                    </div>
+                    <!-- Foto 7 --><div class="gallery-item aspect-square hidden md:block">
+                        <img src="https://placehold.co/400x400/1f2937/fcd34d?text=EBD+(400x400)" alt="Foto da Escola Bíblica Dominical (400x400)" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/400x400/9ca3af/ffffff?text=Imagem+Faltando';" />
+                    </div>
+                    <!-- Foto 8 --><div class="gallery-item aspect-square hidden lg:block">
+                        <img src="https://placehold.co/400x400/4b5563/ffffff?text=Diaconia+(400x400)" alt="Foto da Equipe de Diaconia (400x400)" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/400x400/9ca3af/ffffff?text=Imagem+Faltando';" />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO: Circuito de Oração - Destaque Principal --><section id="circuito" class="section-padding bg-primary text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-4xl font-bold mb-4 text-secondary">Circuito de Oração (CI)</h2>
+                <div class="h-1 bg-white w-24 mx-auto mb-12 rounded-full"></div>
+                
+                <div class="max-w-3xl mx-auto space-y-6 text-lg">
+                    <!-- Ícone centralizado e animado --><div class="text-secondary text-7xl mb-6 flex justify-center">
+                        <!-- Icone (Lucide: Hands Praying) --><svg class="h-20 w-20 animate-pulse" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18V6m0 0a8.995 8.995 0 0 1 3-6.917M12 6a8.995 8.995 0 0 0-3-6.917M12 6v6m0 0l-3 3m3-3l3 3m-3 3v3m0 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/></svg>
+                    </div>
+                    
+                    <p class="text-3xl font-semibold text-white">
+                        O coração intercessor da igreja. Junte-se a nós em um propósito de fé e poder!
+                    </p>
+                    <p class="text-gray-300">
+                        Nosso Circuito de Oração é um momento de intercessão profunda, onde colocamos diante de Deus as causas da igreja, famílias e nação.
+                    </p>
+                    
+                    <div class="mt-8">
+                        <div class="bg-secondary text-primary p-6 rounded-xl shadow-2xl inline-block transition transform hover:scale-105 duration-300">
+                            <p class="text-2xl font-bold">Quando?</p>
+                            <p class="text-xl mt-1 font-semibold">
+                                Todas as **Quartas-feiras** às **15:00h**
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Seção Horários de Culto - Tabela limpa e responsiva --><section id="cultos" class="section-padding bg-gray-50">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-primary">
+                <h2 class="text-4xl font-bold mb-4">Nossos Horários de Celebração</h2>
+                <div class="h-1 bg-secondary w-24 mx-auto mb-12 rounded-full"></div>
+                <p class="text-xl mb-12 text-gray-700">Escolha o melhor dia para nos visitar e fazer parte dessa família.</p>
+
+                <div class="overflow-x-auto shadow-2xl rounded-xl">
+                    <table class="min-w-full bg-white text-gray-800 border-separate border-spacing-0">
+                        <thead class="bg-primary text-white sticky top-0">
+                            <tr>
+                                <th class="py-4 px-6 text-left text-lg font-bold rounded-tl-xl">Evento</th>
+                                <th class="py-4 px-6 text-left text-lg font-bold">Dia</th>
+                                <th class="py-4 px-6 text-left text-lg font-bold rounded-tr-xl">Horário</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- HORÁRIOS DA SEMANA -->
+                            <tr class="border-b border-gray-100 hover:bg-amber-50 transition duration-150">
+                                <td class="py-4 px-6 font-semibold border-r border-gray-100">Culto de Adoração</td>
+                                <td class="py-4 px-6 border-r border-gray-100">Domingo</td>
+                                <td class="py-4 px-6">18:30h</td>
+                            </tr>
+                            <tr class="border-b border-gray-100 bg-gray-50 hover:bg-amber-50 transition duration-150">
+                                <td class="py-4 px-6 font-semibold border-r border-gray-100">Escola Bíblica</td>
+                                <td class="py-4 px-6 border-r border-gray-100">Segunda-feira</td>
+                                <td class="py-4 px-6">19:00h</td>
+                            </tr>
+                            <tr class="border-b border-gray-100 hover:bg-amber-50 transition duration-150">
+                                <td class="py-4 px-6 font-semibold border-r border-gray-100">Culto da Vitória</td>
+                                <td class="py-4 px-6 border-r border-gray-100">Terça-feira</td>
+                                <td class="py-4 px-6">19:00h</td>
+                            </tr>
+                             <tr class="border-b border-gray-100 bg-gray-50 hover:bg-amber-50 transition duration-150">
+                                <td class="py-4 px-6 font-semibold border-r border-gray-100">Circuito Oração (CI)</td>
+                                <td class="py-4 px-6 border-r border-gray-100">Quarta-feira</td>
+                                <td class="py-4 px-6">15:00h</td>
+                            </tr>
+                            <tr class="border-b border-gray-100 hover:bg-amber-50 transition duration-150">
+                                <td class="py-4 px-6 font-semibold border-r border-gray-100">Culto Campal</td>
+                                <td class="py-4 px-6 border-r border-gray-100">Quarta-feira</td>
+                                <td class="py-4 px-6">19:00h</td>
+                            </tr>
+                            <tr class="border-b border-gray-100 bg-gray-50 hover:bg-amber-50 transition duration-150">
+                                <td class="py-4 px-6 font-semibold border-r border-gray-100">Culto de Orientação</td>
+                                <td class="py-4 px-6 border-r border-gray-100">Quinta-feira</td>
+                                <td class="py-4 px-6">19:00h</td>
+                            </tr>
+                            <!-- AGORA SÓ HÁ O Culto no Lar (Sexta) -->
+                            <tr class="hover:bg-amber-50 transition duration-150 rounded-b-xl">
+                                <td class="py-4 px-6 font-semibold border-r border-gray-100 rounded-bl-xl">Culto no Lar</td>
+                                <td class="py-4 px-6 border-r border-gray-100">Sexta-feira</td>
+                                <td class="py-4 px-6 rounded-br-xl">19:00h</td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Contato - Informações e Formulário Fictício --><section id="contato" class="section-padding bg-primary text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl font-bold mb-4 text-secondary text-center">Entre em Contato</h2>
+                <div class="h-1 bg-white w-24 mx-auto mb-12 rounded-full"></div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <!-- Informações de Contato e Endereço -->
+                    <div class="space-y-6">
+                        <h3 class="text-3xl font-bold mb-4">Informações</h3>
+                        
+                        <div class="flex items-start space-x-4">
+                            <!-- Icone (Lucide: Map Pin) -->
+                            <svg class="h-6 w-6 text-secondary flex-shrink-0 mt-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            <div>
+                                <p class="font-bold text-xl text-white">Endereço</p>
+                                <p class="text-gray-300">Rua D 280, Barroso 2 - Passaré, Fortaleza-CE, 60867-290</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <!-- Icone (Lucide: Phone) -->
+                            <svg class="h-6 w-6 text-secondary flex-shrink-0 mt-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 3.08 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <div>
+                                <p class="font-bold text-xl text-white">Telefone</p>
+                                <p class="text-gray-300">(85) 98764-7128</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <!-- Icone (Lucide: Mail) -->
+                            <svg class="h-6 w-6 text-secondary flex-shrink-0 mt-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                            <div>
+                                <p class="font-bold text-xl text-white">Email</p>
+                                <p class="text-gray-300">igreja.admjesus25@gmail.com</p>
+                            </div>
+                        </div>
+                        
+                        <!-- BOTÃO WHATSAPP NO FLUXO NORMAL -->
+                        <div class="pt-4">
+                             <a href="https://wa.me/5585987647128?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20o%20Minist%C3%A9rio%20de%20Jesus." target="_blank" class="w-full inline-flex justify-center items-center px-8 py-3 font-bold text-lg transition duration-300 ease-in-out transform hover:scale-105 rounded-full shadow-xl text-white hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-300" style="background-color: var(--color-whatsapp);">
+                                <span class="mr-2">💬</span> Iniciar Conversa no WhatsApp
+                            </a>
+                        </div><br>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="bg-gray-900 text-white py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-xl font-bold mb-2 text-secondary">Assembleia de Deus Ministério de Jesus</p>
+            <p class="text-gray-400 text-sm">© 2025. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Modal de Mensagem (Substitui alert()) -->
+    <div id="message-modal" class="fixed inset-0 bg-gray-900 bg-opacity-75 hidden items-center justify-center z-50 p-4 transition-opacity duration-300">
+        <div class="bg-white p-8 rounded-xl shadow-2xl max-w-sm w-full text-center transform transition-transform duration-300 scale-95">
+            <div class="text-primary text-4xl mb-4">
+                <!-- Icone (Lucide: Check Circle) -->
+                <svg class="h-10 w-10 mx-auto text-green-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+            </div>
+            <h3 class="text-2xl font-bold text-primary mb-3">Mensagem Recebida!</h3>
+            <p id="modal-text" class="text-gray-600 mb-6">Agradecemos o seu contato. Em breve retornaremos!</p>
+            <button onclick="closeModal()" class="btn-gold bg-primary text-white hover:bg-gray-700">Fechar</button>
+        </div>
+    </div>
+
+    <!-- JavaScript para interatividade (Menu e Modal) -->
+    <script>
+        // Função para abrir/fechar o menu mobile
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Função para fechar o menu mobile (usado nos links)
+        function closeMenu() {
+            const menu = document.getElementById('mobile-menu');
+            if (!menu.classList.contains('hidden')) {
+                menu.classList.add('hidden');
+            }
+        }
+
+        // Adiciona evento de clique ao botão do menu
+        document.getElementById('menu-button').addEventListener('click', toggleMenu);
+
+        // Funções para o Modal de Mensagem
+        function showMessage(event) {
+            event.preventDefault(); // Impede o envio real do formulário
+            const modal = document.getElementById('message-modal');
+            const name = document.getElementById('name').value;
+            document.getElementById('modal-text').textContent = `Obrigado, ${name}! Sua mensagem foi enviada.`;
+            
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            
+            // Opcional: Limpar formulário após envio simulado
+            // event.target.reset();
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('message-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // Configuração de classes responsivas para animações (para o Hero)
+        document.addEventListener('DOMContentLoaded', () => {
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+                @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+                .animate-fade-in { animation: fadeIn 1.5s ease-out forwards; }
+                .animate-slide-up { animation: slideUp 1.8s ease-out forwards; }
+            `;
+            document.head.appendChild(style);
+        });
+
+    </script>
+</body>
+</html>
