@@ -43,9 +43,47 @@
         .gallery-item img {
             @apply w-full h-full object-cover transform hover:scale-105 transition duration-500;
         }
+
+        /* Botão flutuante de música */
+        #music-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #fcd34d;
+            color: #1f2937;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            z-index: 9999;
+            transition: transform 0.3s ease;
+        }
+
+        @keyframes spinMusic {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .music-playing {
+            animation: spinMusic 3s linear infinite;
+        }
     </style>
 </head>
 <body class="text-gray-900 bg-gray-50">
+
+<!-- Música de fundo -->
+<audio id="bg-music" loop preload="auto">
+    <source src="audio/musica.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Botão flutuante -->
+<div id="music-btn" title="Controlar música">🎵</div>
+
 
     <!-- Navegação (Header) - Fundo em Cinza Grafite Fixo --><header class="sticky top-0 z-50 shadow-2xl bg-primary">
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -217,7 +255,7 @@
 
         <!-- SEÇÃO: Circulo de Oração - Destaque Principal --><section id="circulo" class="section-padding bg-primary text-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h2 class="text-4xl font-bold mb-4 text-secondary">Circulo de Oração (CI)</h2>
+                <h2 class="text-4xl font-bold mb-4 text-secondary">Circulo de Oração</h2>
                 <div class="h-1 bg-white w-24 mx-auto mb-12 rounded-full"></div>
                 
                 <div class="max-w-3xl mx-auto space-y-6 text-lg">
@@ -262,38 +300,38 @@
                         </thead>
                         <tbody>
                             <!-- HORÁRIOS DA SEMANA -->
-                            <tr class="border-b border-gray-100 hover:bg-amber-50 transition duration-150">
+                            <tr class="border-b border-gray-100 hover:bg-amber-50 transition duration-150 text-left">
                                 <td class="py-4 px-6 font-semibold border-r border-gray-100">Culto de Adoração</td>
                                 <td class="py-4 px-6 border-r border-gray-100">Domingo</td>
                                 <td class="py-4 px-6">18:30h</td>
                             </tr>
-                            <tr class="border-b border-gray-100 bg-gray-50 hover:bg-amber-50 transition duration-150">
+                            <tr class="border-b border-gray-100 bg-gray-50 hover:bg-amber-50 transition duration-150 text-left">
                                 <td class="py-4 px-6 font-semibold border-r border-gray-100">Escola Bíblica</td>
                                 <td class="py-4 px-6 border-r border-gray-100">Segunda-feira</td>
                                 <td class="py-4 px-6">19:00h</td>
                             </tr>
-                            <tr class="border-b border-gray-100 hover:bg-amber-50 transition duration-150">
+                            <tr class="border-b border-gray-100 hover:bg-amber-50 transition duration-150 text-left">
                                 <td class="py-4 px-6 font-semibold border-r border-gray-100">Culto da Vitória</td>
                                 <td class="py-4 px-6 border-r border-gray-100">Terça-feira</td>
                                 <td class="py-4 px-6">19:00h</td>
                             </tr>
-                             <tr class="border-b border-gray-100 bg-gray-50 hover:bg-amber-50 transition duration-150">
-                                <td class="py-4 px-6 font-semibold border-r border-gray-100">Circulo Oração (CI)</td>
+                             <tr class="border-b border-gray-100 bg-gray-50 hover:bg-amber-50 transition duration-150 text-left">
+                                <td class="py-4 px-6 font-semibold border-r border-gray-100">Circulo de Oração</td>
                                 <td class="py-4 px-6 border-r border-gray-100">Quarta-feira</td>
                                 <td class="py-4 px-6">15:00h</td>
                             </tr>
-                            <tr class="border-b border-gray-100 hover:bg-amber-50 transition duration-150">
+                            <tr class="border-b border-gray-100 hover:bg-amber-50 transition duration-150 text-left">
                                 <td class="py-4 px-6 font-semibold border-r border-gray-100">Culto Campal</td>
                                 <td class="py-4 px-6 border-r border-gray-100">Quarta-feira</td>
                                 <td class="py-4 px-6">19:00h</td>
                             </tr>
-                            <tr class="border-b border-gray-100 bg-gray-50 hover:bg-amber-50 transition duration-150">
+                            <tr class="border-b border-gray-100 bg-gray-50 hover:bg-amber-50 transition duration-150 text-left">
                                 <td class="py-4 px-6 font-semibold border-r border-gray-100">Culto de Orientação</td>
                                 <td class="py-4 px-6 border-r border-gray-100">Quinta-feira</td>
                                 <td class="py-4 px-6">19:00h</td>
                             </tr>
                             <!-- AGORA SÓ HÁ O Culto no Lar (Sexta) -->
-                            <tr class="hover:bg-amber-50 transition duration-150 rounded-b-xl">
+                            <tr class="hover:bg-amber-50 transition duration-150 rounded-b-xl text-left">
                                 <td class="py-4 px-6 font-semibold border-r border-gray-100 rounded-bl-xl">Culto no Lar</td>
                                 <td class="py-4 px-6 border-r border-gray-100">Sexta-feira</td>
                                 <td class="py-4 px-6 rounded-br-xl">19:00h</td>
@@ -312,41 +350,83 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
                     <!-- Informações de Contato e Endereço -->
-                    <div class="space-y-6">
-                        <h3 class="text-3xl font-bold mb-4">Informações</h3>
-                        
-                        <div class="flex items-start space-x-4">
-                            <!-- Icone (Lucide: Map Pin) -->
-                            <svg class="h-6 w-6 text-secondary flex-shrink-0 mt-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                            <div>
-                                <p class="font-bold text-xl text-white">Endereço</p>
-                                <p class="text-gray-300">Rua D 280, Barroso 2 - Passaré, Fortaleza-CE, 60867-290</p>
-                            </div>
-                        </div>
+                        <div class="grid md:grid-cols-2 gap-10">
 
-                        <div class="flex items-start space-x-4">
-                            <!-- Icone (Lucide: Phone) -->
-                            <svg class="h-6 w-6 text-secondary flex-shrink-0 mt-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 3.08 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                            <div>
-                                <p class="font-bold text-xl text-white">Telefone</p>
-                                <p class="text-gray-300">(85) 98764-7128</p>
-                            </div>
-                        </div>
+                            <!-- COLUNA 1 - INFORMAÇÕES -->
+                            <div class="space-y-6">
+                                <h3 class="text-3xl font-bold mb-4">Informações</h3>
+                                
+                                <!-- Endereço -->
+                                <div class="flex items-start space-x-4">
+                                    <svg class="h-6 w-6 text-secondary mt-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+                                    </svg>
+                                    <div>
+                                        <p class="font-bold text-xl text-white">Endereço</p>
+                                        <p class="text-gray-300">Rua D 280, Barroso 2 - Passaré, Fortaleza-CE, 60867-290</p>
+                                    </div>
+                                </div>
 
-                        <div class="flex items-start space-x-4">
-                            <!-- Icone (Lucide: Mail) -->
-                            <svg class="h-6 w-6 text-secondary flex-shrink-0 mt-1" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                            <div>
-                                <p class="font-bold text-xl text-white">Email</p>
-                                <p class="text-gray-300">igreja.admjesus25@gmail.com</p>
+                                <!-- Telefone -->
+                                <div class="flex items-start space-x-4">
+                                    <svg class="h-6 w-6 text-secondary mt-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 3.08 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                                    </svg>
+                                    <div>
+                                        <p class="font-bold text-xl text-white">Telefone</p>
+                                        <p class="text-gray-300">(85) 98764-7128</p>
+                                    </div>
+                                </div>
+
+                                <!-- Email -->
+                                <div class="flex items-start space-x-4">
+                                    <svg class="h-6 w-6 text-secondary mt-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                        <rect width="20" height="16" x="2" y="4" rx="2"/>
+                                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                                    </svg>
+                                    <div>
+                                        <p class="font-bold text-xl text-white">Email</p>
+                                        <p class="text-gray-300">igreja.admjesus25@gmail.com</p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        
-                        <!-- BOTÃO WHATSAPP NO FLUXO NORMAL -->
-                        <div class="pt-4">
-                             <a href="https://wa.me/5585987647128?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20o%20Minist%C3%A9rio%20de%20Jesus." target="_blank" class="w-full inline-flex justify-center items-center px-8 py-3 font-bold text-lg transition duration-300 ease-in-out transform hover:scale-105 rounded-full shadow-xl text-white hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-300" style="background-color: var(--color-whatsapp);">
-                                <span class="mr-2">💬</span> Iniciar Conversa no WhatsApp
-                            </a>
+
+
+                            <!-- COLUNA 2 - BOTÕES -->
+                            <div class="flex flex-col space-y-6 justify-start">
+
+                                <!-- Botão WhatsApp -->
+                                <a href="https://wa.me/5585987647128?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20o%20Minist%C3%A9rio%20de%20Jesus."
+                                target="_blank"
+                                class="w-full inline-flex justify-center items-center px-8 py-4 font-bold text-lg transition transform hover:scale-105 rounded-full shadow-xl text-white hover:bg-green-600 focus:outline-none focus:ring-4 focus:ring-green-300"
+                                style="background-color: var(--color-whatsapp);">
+                                    💬 Iniciar Conversa no WhatsApp
+                                </a>
+
+                                <!-- Redes sociais (uma embaixo da outra) -->
+                                <div class="flex flex-col items-center space-y-4 pt-4">
+
+                                    <!-- Instagram -->
+                                    <a href="https://www.instagram.com/seuinstagram" target="_blank"
+                                    class="w-full flex items-center justify-center h-12 rounded-full bg-gradient-to-tr from-pink-500 via-red-500 to-yellow-500 text-white font-semibold hover:scale-105 transition shadow-lg">
+                                        Instagram
+                                    </a>
+
+                                    <!-- Facebook -->
+                                    <a href="https://www.facebook.com/seufacebook" target="_blank"
+                                    class="w-full flex items-center justify-center h-12 rounded-full bg-blue-600 text-white font-semibold hover:scale-105 transition shadow-lg">
+                                        Facebook
+                                    </a>
+
+                                    <!-- YouTube -->
+                                    <a href="https://www.youtube.com/@seucanal" target="_blank"
+                                    class="w-full flex items-center justify-center h-12 rounded-full bg-red-600 text-white font-semibold hover:scale-105 transition shadow-lg">
+                                        YouTube
+                                    </a>
+
+                                </div>
+                            </div>
+
                         </div><br>
                     </div>
                 </div>
@@ -426,6 +506,43 @@
             document.head.appendChild(style);
         });
 
+        const audio = document.getElementById('bg-music');
+        const btn = document.getElementById('music-btn');
+
+        audio.volume = 0.5;
+
+        // tenta iniciar assim que a página terminar de carregar
+        window.addEventListener('load', () => {
+            audio.play().catch(() => {});
+        });
+
+        // tentativa alternativa ao menor movimento
+        function startAudioOnce() {
+            audio.play().catch(() => {});
+            btn.classList.add('music-playing');
+            btn.innerHTML = '🔊';
+
+            document.removeEventListener('mousemove', startAudioOnce);
+            document.removeEventListener('scroll', startAudioOnce);
+            document.removeEventListener('click', startAudioOnce);
+        }
+
+        // inicia no primeiro movimento do usuário
+        document.addEventListener('mousemove', startAudioOnce);
+        document.addEventListener('scroll', startAudioOnce);
+        document.addEventListener('click', startAudioOnce);
+
+        btn.onclick = function () {
+            if (audio.paused) {
+                audio.play();
+                btn.innerHTML = '🔊';
+                btn.classList.add('music-playing');
+            } else {
+                audio.pause();
+                btn.innerHTML = '🔇';
+                btn.classList.remove('music-playing');
+            }
+        };
     </script>
 </body>
 </html>
