@@ -73,41 +73,57 @@
             animation: spinMusic 3s linear infinite;
         }
 
-        .photo {
-            position: relative;
-            overflow: hidden;
-            border-radius: 16px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            cursor: pointer;
+        .galeria-container {
+            padding: 40px 20px;
+            background: #1e2632;
+            text-align: center;
         }
 
-        .photo img {
+        .titulo-galeria {
+            font-size: 32px;
+            font-weight: 700;
+            color: #fbd36d;
+            margin-bottom: 25px;
+        }
+
+        .galeria {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .galeria-principal img {
             width: 100%;
-            height: 260px;
+            max-height: 420px;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+            transition: .3s ease;
         }
 
-        .photo:hover img {
-            transform: scale(1.1);
-        }
-
-        .overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(0,0,0,0.6);
-            color: #fff;
-            font-size: 1.2rem;
-            font-weight: 600;
+        .galeria-miniaturas {
+            margin-top: 18px;
             display: flex;
-            align-items: center;
             justify-content: center;
-            opacity: 0;
-            transition: opacity 0.4s ease;
+            gap: 12px;
+            flex-wrap: wrap;
         }
 
-        .photo:hover .overlay {
+        .miniatura {
+            width: 110px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 12px;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: .2s;
+            border: 3px solid transparent;
+        }
+
+        .miniatura:hover,
+        .miniatura.ativa {
             opacity: 1;
+            transform: scale(1.05);
+            border: 3px solid #fbd36d;
         }
     </style>
 </head>
@@ -163,7 +179,7 @@
     </header>
     <main>
         <!-- Seção Hero (Início) - Banner de Alto Impacto --><section id="inicio" class="relative section-padding bg-cover bg-center" style="background-image: url('img/banner.jpeg'); min-height: 80vh;">
-            <div class="absolute inset-0 bg-primary opacity-80"></div>
+            <div class="absolute inset-0 bg-primary opacity-80"></div><br><br><br><br>
             <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
                 <h1 class="text-5xl md:text-8xl font-black leading-snug tracking-tighter mb-4 text-secondary animate-fade-in">
                     AD MINISTÉRIO DE JESUS
@@ -290,62 +306,27 @@
 
         <!-- SEÇÃO: Galeria - Destaque Principal --><section id="galeria" class="section-padding bg-primary text-white">
         <section id="galeria" class="py-20 bg-[#0f172a]">
-            <div class="max-w-7xl mx-auto px-6">
-
-                <!-- Cabeçalho -->
-                <div class="text-center mb-16">
+            <div class="text-center mb-16">
                 <h2 class="text-4xl md:text-5xl font-bold text-yellow-400">Galeria de Fotos</h2>
                 <div class="w-24 h-1 bg-yellow-400 mx-auto mt-4 rounded-full"></div>
-                </div>
-
-                <!-- Grid -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-
-                <!-- Item -->
-                <figure class="group relative overflow-hidden rounded-2xl shadow-lg cursor-pointer"
-                        onclick="openLightbox('img/galeria/galeria1.jpeg')">
-                    <img src="img/galeria/galeria1.jpeg" class="w-full h-72 object-cover transition duration-500 group-hover:scale-110">
-                </figure>
-
-                <figure class="group relative overflow-hidden rounded-2xl shadow-lg cursor-pointer"
-                        onclick="openLightbox('img/galeria/galeria2.jpeg')">
-                    <img src="img/galeria/galeria2.jpeg" class="w-full h-72 object-cover transition duration-500 group-hover:scale-110">
-                </figure>
-
-                <figure class="group relative overflow-hidden rounded-2xl shadow-lg cursor-pointer"
-                        onclick="openLightbox('img/galeria/galeria3.jpeg')">
-                    <img src="img/galeria/galeria3.jpeg" class="w-full h-72 object-cover transition duration-500 group-hover:scale-110">
-                </figure>
-
-                <figure class="group relative overflow-hidden rounded-2xl shadow-lg cursor-pointer"
-                        onclick="openLightbox('img/galeria/galeria4.jpeg')">
-                    <img src="img/galeria/galeria4.jpeg" class="w-full h-72 object-cover transition duration-500 group-hover:scale-110">
-                </figure>
-                
-                <figure class="group relative overflow-hidden rounded-2xl shadow-lg cursor-pointer"
-                        onclick="openLightbox('img/galeria/galeria5.jpeg')">
-                    <img src="img/galeria/galeria5.jpeg" class="w-full h-72 object-cover transition duration-500 group-hover:scale-110">
-                </figure>
-
-                <figure class="group relative overflow-hidden rounded-2xl shadow-lg cursor-pointer"
-                        onclick="openLightbox('img/galeria/galeria6.jpeg')">
-                    <img src="img/galeria/galeria6.jpeg" class="w-full h-72 object-cover transition duration-500 group-hover:scale-110">
-                </figure>
-
-                <figure class="group relative overflow-hidden rounded-2xl shadow-lg cursor-pointer"
-                        onclick="openLightbox('img/galeria/galeria7.jpeg')">
-                    <img src="img/galeria/galeria7.jpeg" class="w-full h-72 object-cover transition duration-500 group-hover:scale-110">
-                </figure>
-                <!-- Repita os blocos se quiser mais fotos -->
-
-                </div>
             </div>
 
-            <!-- Lightbox -->
-            <div id="lightbox" class="fixed inset-0 bg-black/90 hidden items-center justify-center z-50">
-                <span onclick="closeLightbox()"
-                    class="absolute top-6 right-6 text-white text-4xl cursor-pointer">&times;</span>
-                <img id="lightbox-img" class="max-w-[90%] max-h-[90%] rounded-xl shadow-2xl">
+            <div class="galeria">
+                <!-- Imagem principal -->
+                <div class="galeria-principal">
+                    <img id="img-principal" src="/img/galeria/galeria0.jpeg" alt="Foto principal">
+                </div>
+
+                <!-- Miniaturas -->
+                <div class="galeria-miniaturas">
+                    <img src="/img/galeria/galeria1.jpeg" class="miniatura ativa" onclick="trocarImagem(this)">
+                    <img src="/img/galeria/galeria2.jpeg" class="miniatura" onclick="trocarImagem(this)">
+                    <img src="/img/galeria/galeria3.jpeg" class="miniatura" onclick="trocarImagem(this)">
+                    <img src="/img/galeria/galeria4.jpeg" class="miniatura" onclick="trocarImagem(this)">
+                    <img src="/img/galeria/galeria5.jpeg" class="miniatura" onclick="trocarImagem(this)">
+                    <img src="/img/galeria/galeria6.jpeg" class="miniatura" onclick="trocarImagem(this)">
+                    <img src="/img/galeria/galeria7.jpeg" class="miniatura" onclick="trocarImagem(this)">
+                </div>
             </div>
         </section><br>
 
@@ -438,7 +419,7 @@
             </div><br>
         </section>
 
-        <!-- Seção Contato - Informações e Formulário Fictício --><section id="contato" class="section-padding bg-primary text-white">
+        <!-- Seção Contato - Informações e Formulário Fictício --><section id="contato" class="section-padding bg-primary text-white"><br>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 class="text-4xl font-bold mb-4 text-secondary text-center">Entre em Contato</h2>
                 <div class="h-1 bg-white w-24 mx-auto mb-12 rounded-full"></div>
@@ -481,7 +462,7 @@
                                 <p class="font-bold text-xl text-white">Email</p>
                                 <p class="text-gray-300">igreja.admjesus25@gmail.com</p>
                             </div>
-                        </div>
+                        </div><br>
                     </div>
 
 
@@ -532,19 +513,6 @@
             <p class="text-gray-400 text-sm">© 2025. Todos os direitos reservados.</p>
         </div>
     </footer>
-
-    <!-- Modal de Mensagem (Substitui alert()) -->
-    <div id="message-modal" class="fixed inset-0 bg-gray-900 bg-opacity-75 hidden items-center justify-center z-50 p-4 transition-opacity duration-300">
-        <div class="bg-white p-8 rounded-xl shadow-2xl max-w-sm w-full text-center transform transition-transform duration-300 scale-95">
-            <div class="text-primary text-4xl mb-4">
-                <!-- Icone (Lucide: Check Circle) -->
-                <svg class="h-10 w-10 mx-auto text-green-500" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
-            </div>
-            <h3 class="text-2xl font-bold text-primary mb-3">Mensagem Recebida!</h3>
-            <p id="modal-text" class="text-gray-600 mb-6">Agradecemos o seu contato. Em breve retornaremos!</p>
-            <button onclick="closeModal()" class="btn-gold bg-primary text-white hover:bg-gray-700">Fechar</button>
-        </div>
-    </div>
 
     <!-- JavaScript para interatividade (Menu e Modal) -->
     <script>
@@ -635,21 +603,19 @@
             }
         };
 
+        function trocarImagem(el) {
+            const imgPrincipal = document.getElementById("img-principal");
 
-        function openLightbox(imgSrc) {
-            const box = document.getElementById('lightbox');
-            const img = document.getElementById('lightbox-img');
-            img.src = imgSrc;
-            box.classList.remove('hidden');
-            box.classList.add('flex');
-        }
+            // Troca da imagem
+            imgPrincipal.src = el.src;
 
-        function closeLightbox() {
-            const box = document.getElementById('lightbox');
-            box.classList.remove('flex');
-            box.classList.add('hidden');
-        }
+            // Atualiza miniaturas ativas
+            document.querySelectorAll(".miniatura").forEach(min => {
+                min.classList.remove("ativa");
+            });
 
+            el.classList.add("ativa");
+}
     </script>
 </body>
 </html>
