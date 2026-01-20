@@ -342,10 +342,27 @@
             </div>
 
             <!-- Lightbox -->
-            <div id="lightbox" class="fixed inset-0 bg-black/90 hidden items-center justify-center z-50">
+            <div id="lightbox" class="fixed inset-0 bg-black/90 hidden flex items-center justify-center z-50">
+                
+                <!-- Botão fechar -->
                 <span onclick="closeLightbox()"
                     class="absolute top-6 right-6 text-white text-4xl cursor-pointer">&times;</span>
-                <img id="lightbox-img" class="max-w-[90%] max-h-[90%] rounded-xl shadow-2xl">
+
+                <!-- Botão anterior -->
+                <button onclick="prevImage()"
+                    class="absolute left-6 text-white text-5xl font-bold cursor-pointer select-none">
+                    ‹
+                </button>
+
+                <!-- Imagem -->
+                <img id="lightbox-img" class="max-w-[90%] max-h-[90%] rounded-xl shadow-2xl transition duration-300">
+
+                <!-- Botão próximo -->
+                <button onclick="nextImage()"
+                    class="absolute right-6 text-white text-5xl font-bold cursor-pointer select-none">
+                    ›
+                </button>
+
             </div>
         </section><br>
 
@@ -622,19 +639,36 @@
             }
         };
 
+        const images = [
+            "img/galeria/galeria1.jpeg",
+            "img/galeria/galeria2.jpeg",
+            "img/galeria/galeria3.jpeg",
+            "img/galeria/galeria4.jpeg",
+            "img/galeria/galeria5.jpeg",
+            "img/galeria/galeria6.jpeg",
+            "img/galeria/galeria7.jpeg"
+        ];
 
-        function openLightbox(imgSrc) {
-            const box = document.getElementById('lightbox');
-            const img = document.getElementById('lightbox-img');
-            img.src = imgSrc;
-            box.classList.remove('hidden');
-            box.classList.add('flex');
+        let currentIndex = 0;
+
+        function openLightbox(src) {
+            currentIndex = images.indexOf(src);
+            document.getElementById("lightbox-img").src = src;
+            document.getElementById("lightbox").classList.remove("hidden");
         }
 
         function closeLightbox() {
-            const box = document.getElementById('lightbox');
-            box.classList.remove('flex');
-            box.classList.add('hidden');
+            document.getElementById("lightbox").classList.add("hidden");
+        }
+
+        function nextImage() {
+            currentIndex = (currentIndex + 1) % images.length;
+            document.getElementById("lightbox-img").src = images[currentIndex];
+        }
+
+        function prevImage() {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            document.getElementById("lightbox-img").src = images[currentIndex];
         }
 
     </script>
