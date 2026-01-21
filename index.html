@@ -288,83 +288,73 @@
             </div>
         </section><br>
 
-        <!-- SEÇÃO: Galeria - Destaque Principal --><section id="galeria" class="section-padding bg-primary text-white">
-        <section id="galeria" class="py-20 bg-[#0f172a]">
-            <div class="max-w-7xl mx-auto px-6">
+        <section id="galeria" class="section-padding bg-primary text-white">
+        <div class="max-w-7xl mx-auto px-4">
 
-                <!-- Cabeçalho -->
-                <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold text-yellow-400">Galeria de Fotos</h2>
-                <div class="w-24 h-1 bg-yellow-400 mx-auto mt-4 rounded-full"></div>
+            <h2 class="text-4xl font-bold text-secondary text-center mb-12">
+            Galeria de Fotos
+            </h2>
+
+            <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
+
+            <!-- Álbum -->
+            <button onclick="abrirAlbum('reforma')"
+                class="bg-white/10 rounded-2xl overflow-hidden shadow-lg
+                    hover:scale-105 transition text-left">
+
+                <img src="img/galeria/reforma/capa.jpeg"
+                    class="w-full h-48 object-cover">
+
+                <div class="p-4 text-center">
+                <h3 class="text-xl font-bold">Reforma do Templo</h3>
+                <p class="text-gray-300 text-sm">Antes e depois</p>
                 </div>
+            </button>
 
-                <!-- Grid -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            <button onclick="abrirAlbum('inauguracao')"
+                class="bg-white/10 rounded-2xl overflow-hidden shadow-lg
+                    hover:scale-105 transition text-left">
 
-                <!-- Item -->
-                <figure class="group relative overflow-hidden rounded-2xl shadow-lg cursor-pointer"
-                        onclick="openLightbox('img/galeria/galeria1.jpeg')">
-                    <img src="img/galeria/galeria1.jpeg" class="w-full h-72 object-cover transition duration-500 group-hover:scale-110">
-                </figure>
+                <img src="img/galeria/inauguracao/capa.jpeg"
+                    class="w-full h-48 object-cover">
 
-                <figure class="group relative overflow-hidden rounded-2xl shadow-lg cursor-pointer"
-                        onclick="openLightbox('img/galeria/galeria2.jpeg')">
-                    <img src="img/galeria/galeria2.jpeg" class="w-full h-72 object-cover transition duration-500 group-hover:scale-110">
-                </figure>
-
-                <figure class="group relative overflow-hidden rounded-2xl shadow-lg cursor-pointer"
-                        onclick="openLightbox('img/galeria/galeria3.jpeg')">
-                    <img src="img/galeria/galeria3.jpeg" class="w-full h-72 object-cover transition duration-500 group-hover:scale-110">
-                </figure>
-
-                <figure class="group relative overflow-hidden rounded-2xl shadow-lg cursor-pointer"
-                        onclick="openLightbox('img/galeria/galeria4.jpeg')">
-                    <img src="img/galeria/galeria4.jpeg" class="w-full h-72 object-cover transition duration-500 group-hover:scale-110">
-                </figure>
-                
-                <figure class="group relative overflow-hidden rounded-2xl shadow-lg cursor-pointer"
-                        onclick="openLightbox('img/galeria/galeria5.jpeg')">
-                    <img src="img/galeria/galeria5.jpeg" class="w-full h-72 object-cover transition duration-500 group-hover:scale-110">
-                </figure>
-
-                <figure class="group relative overflow-hidden rounded-2xl shadow-lg cursor-pointer"
-                        onclick="openLightbox('img/galeria/galeria6.jpeg')">
-                    <img src="img/galeria/galeria6.jpeg" class="w-full h-72 object-cover transition duration-500 group-hover:scale-110">
-                </figure>
-
-                <figure class="group relative overflow-hidden rounded-2xl shadow-lg cursor-pointer"
-                        onclick="openLightbox('img/galeria/galeria7.jpeg')">
-                    <img src="img/galeria/galeria7.jpeg" class="w-full h-72 object-cover transition duration-500 group-hover:scale-110">
-                </figure>
-                <!-- Repita os blocos se quiser mais fotos -->
-
+                <div class="p-4 text-center">
+                <h3 class="text-xl font-bold">Culto de Inauguração</h3>
+                <p class="text-gray-300 text-sm">Inauguração</p>
                 </div>
-            </div>
+            </button>
 
-            <!-- Lightbox -->
-            <div id="lightbox" class="fixed inset-0 bg-black/90 hidden flex items-center justify-center z-50">
-                
-                <!-- Botão fechar -->
-                <span onclick="closeLightbox()"
-                    class="absolute top-6 right-6 text-white text-4xl cursor-pointer">&times;</span>
+            </div><br>
+        </div>
+        </section>
+        <!-- MODAL -->
+        <div id="modal"
+            class="fixed inset-0 bg-black/90 hidden z-50 flex items-center justify-center">
 
-                <!-- Botão anterior -->
-                <button onclick="prevImage()"
-                    class="absolute left-6 text-white text-5xl font-bold cursor-pointer select-none">
-                    ‹
-                </button>
+        <!-- Botão fechar -->
+        <button onclick="fecharModal()"
+            class="absolute top-6 right-6 text-white text-3xl font-bold">
+            ✕
+        </button>
 
-                <!-- Imagem -->
-                <img id="lightbox-img" class="max-w-[90%] max-h-[90%] rounded-xl shadow-2xl transition duration-300">
+        <!-- Botão anterior -->
+        <button onclick="anterior()"
+            class="absolute left-6 text-white text-4xl">
+            ❮
+        </button>
 
-                <!-- Botão próximo -->
-                <button onclick="nextImage()"
-                    class="absolute right-6 text-white text-5xl font-bold cursor-pointer select-none">
-                    ›
-                </button>
+        <!-- Imagem -->
+        <img id="imagemModal"
+            class="max-h-[85vh] max-w-[90vw] rounded-xl shadow-2xl">
 
-            </div>
-        </section><br>
+        <!-- Botão próximo -->
+        <button onclick="proximo()"
+            class="absolute right-6 text-white text-4xl">
+            ❯
+        </button>
+        </div>
+
+<br>
 
         <!-- SEÇÃO: Circulo de Oração - Destaque Principal --><section id="circulo" class="section-padding bg-primary text-white"><br>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -665,38 +655,62 @@
             }
         };
 
-        const images = [
-            "img/galeria/galeria1.jpeg",
-            "img/galeria/galeria2.jpeg",
-            "img/galeria/galeria3.jpeg",
-            "img/galeria/galeria4.jpeg",
-            "img/galeria/galeria5.jpeg",
-            "img/galeria/galeria6.jpeg",
-            "img/galeria/galeria7.jpeg"
-        ];
+        const albuns = {
+        reforma: [
+            "img/galeria/reforma/1.jpeg",
+            "img/galeria/reforma/2.jpeg",
+            "img/galeria/reforma/3.jpeg",
+            "img/galeria/reforma/4.jpeg",
+            "img/galeria/reforma/5.jpeg",
+            "img/galeria/reforma/6.jpeg",
+            "img/galeria/reforma/7.jpeg"
+        ],
+        inauguracao: [
+            "img/galeria/inauguracao/1.jpeg",
+            "img/galeria/inauguracao/2.jpeg",
+            "img/galeria/inauguracao/3.jpeg",
+            "img/galeria/inauguracao/4.jpeg",
+            "img/galeria/inauguracao/5.jpeg",
+            "img/galeria/inauguracao/6.jpeg",
+            "img/galeria/inauguracao/7.jpeg",
+            "img/galeria/inauguracao/8.jpeg",
+            "img/galeria/inauguracao/9.jpeg",
+            "img/galeria/inauguracao/sorteio.mp4"
+        ]
+        };
 
-        let currentIndex = 0;
+        let fotos = [];
+        let indiceAtual = 0;
 
-        function openLightbox(src) {
-            currentIndex = images.indexOf(src);
-            document.getElementById("lightbox-img").src = src;
-            document.getElementById("lightbox").classList.remove("hidden");
+        function abrirAlbum(nome) {
+        fotos = albuns[nome];
+        indiceAtual = 0;
+        document.getElementById("modal").classList.remove("hidden");
+        atualizarImagem();
         }
 
-        function closeLightbox() {
-            document.getElementById("lightbox").classList.add("hidden");
+        function fecharModal() {
+        document.getElementById("modal").classList.add("hidden");
         }
 
-        function nextImage() {
-            currentIndex = (currentIndex + 1) % images.length;
-            document.getElementById("lightbox-img").src = images[currentIndex];
+        function atualizarImagem() {
+        document.getElementById("imagemModal").src = fotos[indiceAtual];
         }
 
-        function prevImage() {
-            currentIndex = (currentIndex - 1 + images.length) % images.length;
-            document.getElementById("lightbox-img").src = images[currentIndex];
+        function proximo() {
+        indiceAtual = (indiceAtual + 1) % fotos.length;
+        atualizarImagem();
         }
 
+        function anterior() {
+        indiceAtual = (indiceAtual - 1 + fotos.length) % fotos.length;
+        atualizarImagem();
+        }
+
+        /* ESC fecha o modal */
+        document.addEventListener("keydown", e => {
+        if (e.key === "Escape") fecharModal();
+        });
     </script>
 </body>
 </html>
