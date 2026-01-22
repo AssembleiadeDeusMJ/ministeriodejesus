@@ -111,8 +111,44 @@
         }
     </style>
 </head>
-<body class="text-gray-900 bg-gray-50">
+<!-- POP-UP BANNER -->
+<div id="popupBanner"
+     class="fixed inset-0 bg-black/70 z-50 flex items-center justify-center hidden">
 
+  <div class="relative max-w-md w-full mx-4">
+
+    <!-- Botão fechar -->
+    <button onclick="fecharPopup()"
+      class="absolute -top-4 -right-4 bg-white text-black rounded-full
+             w-10 h-10 flex items-center justify-center font-bold shadow-lg">
+      ✕
+    </button>
+
+    <!-- Imagem do banner -->
+    <img src="img/banner_oracao.jpeg"
+         class="w-full max-h-[80vh] object-contain rounded-2xl shadow-2xl"
+         alt="Banner informativo">
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const exibido = localStorage.getItem("popupBannerExibido");
+
+  if (!exibido) {
+    document.getElementById("popupBanner").classList.remove("hidden");
+  }
+
+});
+
+function fecharPopup() {
+  document.getElementById("popupBanner").classList.add("hidden");
+  localStorage.setItem("popupBannerExibido", "true");
+}
+</script>
+
+<body class="text-gray-900 bg-gray-50">
 <!-- Música de fundo -->
 <audio id="bg-music" loop preload="auto">
     <source src="audio/musica.mp3" type="audio/mpeg">
@@ -124,7 +160,7 @@
 
     <!-- Navegação (Header) - Fundo em Cinza Grafite Fixo --><header class="sticky top-0 z-50 shadow-2xl bg-primary">
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
+            <div class="flex items-center justify-between h-15">
                 <div class="flex items-center">
                     <a href="#inicio" class="flex-shrink-0 text-3xl font-extrabold text-white tracking-wider">
                         <img src="img/home.png" class="w-10 h-15" alt="Início">
@@ -424,7 +460,7 @@
                                 <td class="py-4 px-6">19:00h</td>
                             </tr>
                             <tr class="border-b border-gray-100 bg-gray-50 hover:bg-amber-50 transition duration-150 text-left">
-                                <td class="py-4 px-6 font-semibold border-r border-gray-100">Culto de Orientação</td>
+                                <td class="py-4 px-6 font-semibold border-r border-gray-100">Culto de Ensino</td>
                                 <td class="py-4 px-6 border-r border-gray-100">Quinta-feira</td>
                                 <td class="py-4 px-6">19:00h</td>
                             </tr>
